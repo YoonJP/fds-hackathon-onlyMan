@@ -1,5 +1,5 @@
 // 퍼즐의 숫자를 저장하는 배열 선언
-const boardState = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,15,14]
+const boardState = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]
 
 // 랜덤 박스 배치 및 게임 진행 가능 여부 판단을 위한 반전쌍 판별 함수
 function randomBox(arr) {
@@ -10,13 +10,13 @@ function randomBox(arr) {
     arr[index] = numArr[random]
     numArr.splice(random, 1)
   })
-
+  console.log(arr)
   // 랜덤으로 배치된 박스에서 반전쌍의 갯수 구하기
   let reversalPair = 0;
 
   for (let i = 0; i < 16; i+=4) {
     for (let j = i; j < i + 4; j++) {
-      for (let k = j + 1; k < j + 4; k++) {
+      for (let k = j + 1; k < i + 4; k++) {
         if (arr[j] > arr[k]) {
           reversalPair++
         }
@@ -24,18 +24,18 @@ function randomBox(arr) {
     }
   }
 
-  // console.log(`반전쌍은 ${reversalPair}개 입니다.`)
+  console.log(`반전쌍은 ${reversalPair}개 입니다.`)
 
   // 0의 위치 구하기
   let zeroPosition = 0;
 
   arr.forEach((item, index) => {
-    if (item === 0) {
-      zeroPosition += Math.floor(index / 4) + 1
+    if (index === 15) {
+      zeroPosition += Math.floor(item / 4) + 1
     }
   })
 
-  // console.log(`빈 곳은 ${zeroPosition}줄에 있습니다.`)
+  console.log(`빈 곳은 ${zeroPosition}줄에 있습니다.`)
 
   // 조건에 부합하지 않을 경우 함수 재실행
   if (zeroPosition % 2 === 1 && reversalPair % 2 === 0) {
@@ -55,12 +55,14 @@ function drawBoard() {
   gameBoard.querySelectorAll('.col').forEach((colEl, colIndex) => {
       colEl.setAttribute('data-idx', boardState[colIndex])
   })
-  moveEl.textContent = move
+  if(restart.textContent !== '시작') {
+    moveEl.textContent = move
+  }
 };
 
 // 클릭했을 때 움직이도록 상태를 변화시키는 함수
 const gameTable = gameBoard.querySelectorAll('.col')
-// 움직임 횟수 체크를 위한 move 변수 선언
+// 움직임 횟수 체크를 위한 move 변수 선언 및 초기화
 let move = 0;
 gameTable.forEach((colEl, colIndex) => {
   colEl.addEventListener('click', e => {
@@ -243,103 +245,19 @@ function setIntervalAndExcute() {
   return timeUp
 }
 
-// 재시작 버튼 동작
+// 시작, 다시하기 버튼 동작
 const restart = document.querySelector('.btn-restart')
 
 restart.addEventListener('click', e => {
-  restart.textContent = '재시작'
+  restart.textContent = '다시하기'  // 시작 버튼을 누르고 나면 다시하기 버튼으로 이름이 바뀐다
   document.querySelector('.win').classList.remove('view') // 승리 모달 제거
   move = 0; // 움직임 횟수 초기화
   clearInterval(timeUp) // 기존에 돌고 있던 타이머 인터벌 종료
   setIntervalAndExcute()  // 타이머 인터벌이 들어있는 함수 재실행
-  randomBox(boardState)
-  drawBoard()
+  randomBox(boardState) // 랜덤박스 생성
+  drawBoard() // 화면 그리기
 })
 
-// 최초 타이머 인터벌 실행 및 상태에 따른 화면 그리기 수행
-setIntervalAndExcute()
+// 최초 상태에 따른 화면 그리기 수행
 drawBoard()
-
-
-// // 상태로부터 화면을 그리는 함수
-// function drawBoard() {
-//   // 정답 판별
-//   isAnswer()
-//   // move 값 변화
-//   const moveEl = document.querySelector('.moveEl')
-//   moveEl.textContent = move
-
-//   document.querySelectorAll('.row').forEach((rowEl, rowIndex) => {
-//     rowEl.querySelectorAll('.col').forEach((colEl, colIndex) => {
-//       // blank의 좌표 알아내는 법
-//       if (boardState[rowIndex][colIndex] === 0) {
-//         x = colIndex
-//         y = rowIndex
-//       }
-//       // 퍼즐판에 boardState의 숫자를 넣어줌
-//       colEl.textContent = boardState[rowIndex][colIndex];
-//       // 만약, colEl이 X라면 'blank'class를 넣어줌
-//       // if (boardState[rowIndex][colIndex] === 0) {
-//       //   colEl.classList.add("blank");
-//       // } else {
-//       //   colEl.classList.remove("blank");
-//       // }
-//     })
-
-
-// 클릭할 때 일어나는 변화 (방법 1: 배열 이용)
-// document.querySelectorAll('.row').forEach((rowEl, rowIndex) => {
-//   rowEl.querySelectorAll('.col').forEach((colEl, colIndex) => {
-//     colEl.addEventListener('click', e => {
-//       if (rowIndex === y) {
-//         boardState[rowIndex].splice(x, 1);
-//         boardState[rowIndex].splice(colIndex, 0, 0);
-//         move += 1
-//         drawBoard();
-//       } else if (colIndex === x && rowIndex < y) {
-//         for (let i = 0; i < y - rowIndex; i++) {
-//           boardState[y - i].splice(colIndex, 1, boardState[y - 1 - i][colIndex]);
-//         }
-//         boardState[rowIndex].splice(colIndex, 1, 0);
-//         move += 1
-//         drawBoard();
-//       } else if (colIndex === x && rowIndex > y) {
-//         for (let i = 0; i < rowIndex - y; i++) {
-//           boardState[y + i].splice(colIndex, 1, boardState[y + 1 + i][colIndex]);
-//         }
-//         boardState[rowIndex].splice(colIndex, 1, 0);
-//         move += 1
-//         drawBoard();
-//       }
-//     })
-//   })
-// })
-
-// // 정답 판별 함수
-// function isAnswer() {
-//   let answer = true
-//   const newArr = new Array()
-//   //boardState의 값을 새로운 1차원 배열에 넣어준다.
-//   for(let i=0; i < boardState.length; i++) {
-//     for(let j=0; j < boardState[i].length; j++) {
-//       newArr.push(boardState[i][j])
-//     }
-//   }
-//   // 새로 만든 1차원 배열을 순회하면서 값이 1~15 순서대로 나오는지 확인한다.
-//   // 순서대로 나오지 않으면 answer를 false로 변경
-//   for(let k=0; k < newArr.length-1; k++) {
-//     if(newArr[k] !== k+1) {
-//       answer = false
-//     }
-//   }
-//   // 만약 answer가 false로 변하지 않고 계속 true라면 정답화면 출력
-//   if(answer) {
-//     console.log('정답입니다!')
-//   } else {
-//     console.log('오답입니다ㅠㅠ')
-//   }
-
-//   // console.log(newArr)
-// }
-
 
