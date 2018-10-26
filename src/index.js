@@ -1,6 +1,16 @@
 // 퍼즐의 숫자를 저장하는 배열 선언
 const boardState = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]
 
+// 보드의 현 상태를 그리는 함수
+const gameBoard = document.querySelector('.game-board')
+const moveEl = document.querySelector('.moveEl')
+function drawBoard() {
+  gameBoard.querySelectorAll('.col').forEach((colEl, colIndex) => {
+      colEl.setAttribute('data-idx', boardState[colIndex])
+  })
+  moveEl.textContent = move
+};
+
 // 랜덤 박스 배치 및 게임 진행 가능 여부 판단을 위한 반전쌍 판별 함수
 function randomBox(arr) {
   // 랜덤으로 박스 배치
@@ -11,16 +21,16 @@ function randomBox(arr) {
     numArr.splice(random, 1)
   })
 
-  // 랜덤으로 배치된 박스에서 반전쌍의 갯수 구하기
-  let reversalPair = 0;
+  const newArr = new Array(16)
+  arr.forEach((item, index) => {
+      newArr.splice(item, 1, index+1)
+  })
+  newArr.splice(newArr.indexOf(16), 1)
 
-  for (let i = 0; i < 16; i+=4) {
-    for (let j = i; j < i + 4; j++) {
-      for (let k = j + 1; k < i + 4; k++) {
-        if (arr[j] > arr[k]) {
-          reversalPair++
-        }
-      }
+  let reversalPair = 0;
+  for (let i = 0; i < 15; i++) {
+    for (let j = i + 1; j < 15; j++) {
+      if (newArr[i] > newArr[j]) reversalPair++
     }
   }
 
@@ -30,12 +40,12 @@ function randomBox(arr) {
   let zeroPosition = 0;
 
   arr.forEach((item, index) => {
-    if (item === 0) {
-      zeroPosition += Math.floor(index / 4) + 1
+    if (index === 15) {
+      zeroPosition += Math.floor(item / 4) + 1
     }
   })
 
-  console.log(`현재 반전쌍은 ${zeroPosition}개 입니다.`)
+  console.log(`현재 빈칸의 위치는 ${zeroPosition}번째 열입니다.`)
 
   // 조건에 부합하지 않을 경우 함수 재실행
   if (zeroPosition % 2 === 1 && reversalPair % 2 === 0) {
@@ -47,16 +57,6 @@ function randomBox(arr) {
   }
 
 }
-
-// 보드의 현 상태를 그리는 함수
-const gameBoard = document.querySelector('.game-board')
-const moveEl = document.querySelector('.moveEl')
-function drawBoard() {
-  gameBoard.querySelectorAll('.col').forEach((colEl, colIndex) => {
-      colEl.setAttribute('data-idx', boardState[colIndex])
-  })
-  moveEl.textContent = move
-};
 
 // 클릭했을 때 움직이도록 상태를 변화시키는 함수
 const gameTable = gameBoard.querySelectorAll('.col')
