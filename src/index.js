@@ -114,9 +114,9 @@ gameTable.forEach((colEl, colIndex) => {
     // score가 15가 되면 모든 숫자가 1~15의 순서로 위치한다는 의미이므로 게임 승리하고 종료한다.
     if (score === 15) {
       document.querySelector('.win').classList.add('view')
-      restart.textContent = '재시작'
+      restart.textContent = '다시하기'
       clearInterval(timeUp) // 돌고 있던 타이머 인터벌 종료
-      timeElFinal.textContent = timeEl.textContent  // 하단바의 시간을 모달에 똑같이 띄워준다.
+      recordEl.textContent = timeEl.textContent  // 하단바의 시간을 모달에 똑같이 띄워준다.
     }
 
   })
@@ -125,9 +125,9 @@ gameTable.forEach((colEl, colIndex) => {
 // 타이머 기능
 let timeUp
 const timeEl = document.querySelector('.timeEl')
-const timeElFinal = document.querySelector('.timeEl-final')
+const recordEl = document.querySelector('.recordEl')
 function setIntervalAndExcute() {
-  // 타이머 값 초기화
+  // 타이머 상태 초기화
   timeEl.textContent = `00:00:00`
   let sec = 0, min = 0, hour = 0
   // 1000밀리초마다 timer함수를 실행하는 timeUp 함수를 설정
