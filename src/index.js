@@ -47,7 +47,6 @@ function randomBox(arr) {
   }
 
 }
-
 // 보드의 현 상태를 그리는 함수
 const gameBoard = document.querySelector('.game-board')
 const moveEl = document.querySelector('.moveEl')
@@ -55,7 +54,9 @@ function drawBoard() {
   gameBoard.querySelectorAll('.col').forEach((colEl, colIndex) => {
       colEl.setAttribute('data-idx', boardState[colIndex])
   })
-  moveEl.textContent = move
+  if(restart.textContent !== '시작') {
+    moveEl.textContent = move
+  }
 };
 
 // 클릭했을 때 움직이도록 상태를 변화시키는 함수
