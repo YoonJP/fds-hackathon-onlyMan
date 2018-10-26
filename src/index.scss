@@ -1,7 +1,13 @@
+// Encoding ==================================
 @charset "utf-8";
+
+// Google font link ==========================
 @import url('https://fonts.googleapis.com/css?family=Noto+Sans+KR:100,400');
 @import url('https://fonts.googleapis.com/css?family=Lato:300,400');
 
+/* ===============
+    CSS RESET
+================= */
 *,
 *::before,
 *::after {
@@ -21,13 +27,25 @@
   z-index: 10;
 }
 
-.clearfix::after {
-  display: block;
-  clear: both;
-  content: "";
+$main-color: #fff;
+
+html {
+  font-size: 10px;
 }
 
-$main-color: #fff;
+body {
+  background-color: $main-color;
+  font-size: 14px;
+  font-family:'Lato', 'Noto Sans KR', sans-serif;
+}
+
+
+/* ====================
+  Animation variables
+====================== */
+
+
+// Fade in & Down direction movement =========
 
 @keyframes down {
   0% {
@@ -41,22 +59,31 @@ $main-color: #fff;
   }
 }
 
-html {
-  font-size: 10px;
+
+// Fade in ===================================
+
+@keyframes opa {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 0.9;
+  }
 }
 
-body {
-  background-color: $main-color;
-  font-size: 14px;
-  font-family:'Lato', 'Noto Sans KR', sans-serif;
-}
+/* ===========
+  MAIN STLYE
+============= */
 
+// Body container style =====================
 .container {
   width: 380px;
   background-color: #fff;
   margin: 0 auto;
 }
 
+// Header style =============================
 .header {
   padding: 30px 0 35px;
   text-align: center;
@@ -81,6 +108,9 @@ body {
   padding-top: 20px;
 }
 
+
+// Restrt button =============================
+
 .btn-restart {
   font-size: 17px;
   font-weight: 400;
@@ -102,6 +132,11 @@ body {
   outline: 0;
 }
 
+
+/* ================
+  Game board style
+==================- */
+
 .game-board {
   width: 100%;
   height: 380px;
@@ -112,6 +147,9 @@ body {
   position: relative;
   z-index: 10;
 }
+
+
+// Win modal =================================
 
 .win {
   position: absolute;
@@ -126,16 +164,6 @@ body {
   display: none;
   justify-content: center;
   align-items: center;
-}
-
-@keyframes opa {
-  0% {
-    opacity: 0;
-  }
-
-  100% {
-    opacity: 0.9;
-  }
 }
 
 .view {
@@ -179,9 +207,8 @@ body {
   margin: 10px auto 0;
 }
 
-.move-record {
-  display: block;
-}
+
+// Ball style ================================
 
 .col {
   width: calc(25% - 4px);
@@ -216,6 +243,9 @@ body {
 .col:nth-child(n+13):nth-child(-n+15) {
   background-color: #fb581e;
 }
+
+
+// Balls position ============================
 
 [data-idx='0']{
   transform: translate(4px, 4px);
@@ -286,6 +316,9 @@ body {
   border-color: transparent;
 }
 
+
+// Game info =================================
+
 .info {
   background-color: #eee;
 
@@ -320,6 +353,10 @@ body {
 }
 
 
+/* =======
+  Footer
+========= */
+
 .footer {
   color: #aaa;
   position: fixed;
@@ -334,6 +371,10 @@ body {
 .fastcampus {
   font-family: 400;
 }
+
+/* =========================
+  Media-query (SMART PHONE)
+=========================== */
 
 @media screen and (max-width: 480px) {
   $viewWidth: calc(100vw - 20px);

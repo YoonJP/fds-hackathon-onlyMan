@@ -10,21 +10,21 @@ function randomBox(arr) {
     arr[index] = numArr[random]
     numArr.splice(random, 1)
   })
-  console.log(arr)
-  // 랜덤으로 배치된 박스에서 반전쌍의 갯수 구하기
-  let reversalPair = 0;
 
-  for (let i = 0; i < 16; i+=4) {
-    for (let j = i; j < i + 4; j++) {
-      for (let k = j + 1; k < i + 4; k++) {
-        if (arr[j] > arr[k]) {
-          reversalPair++
-        }
-      }
+  const newArr = new Array(16)
+  arr.forEach((item, index) => {
+      newArr.splice(item, 1, index+1)
+  })
+  newArr.splice(newArr.indexOf(16), 1)
+
+  let reversalPair = 0;
+  for (let i = 0; i < 15; i++) {
+    for (let j = i + 1; j < 15; j++) {
+      if (newArr[i] > newArr[j]) reversalPair++
     }
   }
 
-  console.log(`반전쌍은 ${reversalPair}개 입니다.`)
+  console.log(`현재의 반전쌍은 ${reversalPair}개 입니다.`)
 
   // 0의 위치 구하기
   let zeroPosition = 0;
@@ -35,7 +35,7 @@ function randomBox(arr) {
     }
   })
 
-  console.log(`빈 곳은 ${zeroPosition}줄에 있습니다.`)
+  console.log(`현재 빈칸의 위치는 ${zeroPosition}번째 열입니다.`)
 
   // 조건에 부합하지 않을 경우 함수 재실행
   if (zeroPosition % 2 === 1 && reversalPair % 2 === 0) {
@@ -55,9 +55,7 @@ function drawBoard() {
   gameBoard.querySelectorAll('.col').forEach((colEl, colIndex) => {
       colEl.setAttribute('data-idx', boardState[colIndex])
   })
-  if(restart.textContent !== '시작') {
-    moveEl.textContent = move
-  }
+  moveEl.textContent = move
 };
 
 // 클릭했을 때 움직이도록 상태를 변화시키는 함수
@@ -86,8 +84,6 @@ gameTable.forEach((colEl, colIndex) => {
     let bottomItem = boardState.indexOf(dataIdx + 4)
     let dbBottomItem = boardState.indexOf(dataIdx + 8)
     let tpBottomItem = boardState.indexOf(dataIdx + 12)
-
-    console.log(boardState)
 
     if (rightItem === 15
       && dataIdx + 1 !== 0 && dataIdx + 1 !== 4 && dataIdx + 1 !== 8 && dataIdx + 1 !== 12

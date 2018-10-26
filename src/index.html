@@ -5,25 +5,43 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>해커톤 템플릿 프로젝트</title>
+  <title>15 PUZZLES</title>
   <link rel="stylesheet" href="./index.scss">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
 </head>
 
 <body>
+
+  <!-- Body container -->
   <div class="body-container">
+
+    <!-- Header & Game board container -->
     <div class="container">
+
+      <!-- Header -->
       <header class="header">
+
+        <!-- Logo -->
         <h1 class="title">
           <img src="imgs/logo.png" alt="15PUZZLES">
         </h1>
+
+        <!-- Game explain -->
         <p class="game-explain">공의 숫자를 순서대로 맞추세요!</p>
+
+        <!-- Start & Restart button -->
         <button class="btn-restart">시작</button>
+
       </header>
+
+      <!-- Board -->
       <section class="game">
+
         <h2 class="game-heading readable-hidden">
           여기는 게임 보드
         </h2>
+
+        <!-- Game Board -->
         <div class="game-board">
           <div class="col" data-idx="0">1</div>
           <div class="col" data-idx="1">2</div>
@@ -40,8 +58,10 @@
           <div class="col" data-idx="12">13</div>
           <div class="col" data-idx="13">14</div>
           <div class="col" data-idx="15">15</div>
-          <div class="col blank" data-idx="14">0</div>
+          <div class="col blank" data-idx="14">none</div>
         </div>
+
+        <!-- Win modal -->
         <div class='win'>
           <p class="win-modal">
             <span class="smile"><i class="far fa-grin"></i></span>
@@ -49,16 +69,21 @@
             <span class="final-time">Record: <span class="recordEl"></span></span>
           </p>
         </div>
+
+        <!-- Game informations -->
         <div class="info">
           <div class="info-block">
             <span class="move">Move: <span class="moveEl">0</span></span>
             <span class="time">Time: <span class="timeEl">00:00:00</span></span>
           </div>
         </div>
+
       </section>
     </div>
+
+    <!-- Footer -->
     <footer class="footer">
-      <small>The work was helped by the <span class="fastcampus">FASTCAMPUS.</span></small>
+      <small>Our team name is [OnlyMan], this work was helped by the <span class="fastcampus">FASTCAMPUS.</span></small>
     </footer>
   </div>
 
