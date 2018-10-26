@@ -1,6 +1,5 @@
 // 퍼즐의 숫자를 저장하는 배열 선언
 const boardState = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,15,14]
-  // console.log(boardState)
 
 // 랜덤 박스 배치 및 게임 진행 가능 여부 판단을 위한 반전쌍 판별 함수
 function randomBox(arr) {
@@ -68,37 +67,121 @@ gameTable.forEach((colEl, colIndex) => {
 
     let dataIdx = parseInt(colEl.getAttribute('data-idx'))
 
-    // console.log(`지금 클릭한 인덱스는 ${dataIdx}입니다.`)
-    // console.log(boardState)
-
-    for(let i = 0; i < 16; i++) {
-      // console.log(`${i+1}는 ${boardState[i]}인덱스에`)
-    }
     let thisItem = boardState.indexOf(dataIdx)
-    let rightItem = boardState.indexOf(dataIdx + 1)
-    let leftItem = boardState.indexOf(dataIdx - 1)
-    let topItem = boardState.indexOf(dataIdx - 4)
-    let bottomItem = boardState.indexOf(dataIdx + 4)
 
-    if (rightItem === 15) {
+    let rightItem = boardState.indexOf(dataIdx + 1)
+    let dbRightItem = boardState.indexOf(dataIdx + 2)
+    let tpRightItem = boardState.indexOf(dataIdx + 3)
+
+    let leftItem = boardState.indexOf(dataIdx - 1)
+    let dbLeftItem = boardState.indexOf(dataIdx - 2)
+    let tpLeftItem = boardState.indexOf(dataIdx - 3)
+
+    let topItem = boardState.indexOf(dataIdx - 4)
+    let dbTopItem = boardState.indexOf(dataIdx - 8)
+    let tpTopItem = boardState.indexOf(dataIdx - 12)
+
+    let bottomItem = boardState.indexOf(dataIdx + 4)
+    let dbBottomItem = boardState.indexOf(dataIdx + 8)
+    let tpBottomItem = boardState.indexOf(dataIdx + 12)
+
+    console.log(boardState)
+
+    if (rightItem === 15
+      && dataIdx + 1 !== 0 && dataIdx + 1 !== 4 && dataIdx + 1 !== 8 && dataIdx + 1 !== 12
+      ) {
       boardState.splice(thisItem, 1, dataIdx + 1)
       boardState.splice(rightItem, 1, dataIdx)
       move += 1
       drawBoard()
-    } else if (leftItem === 15) {
+    } else if (
+      dbRightItem === 15
+      && dataIdx + 1 !== 0 && dataIdx + 1 !== 4 && dataIdx + 1 !== 8 && dataIdx + 1 !== 12
+      && dataIdx + 2 !== 0 && dataIdx + 2 !== 4 && dataIdx + 2 !== 8 && dataIdx + 2 !== 12
+      ) {
+      boardState.splice(thisItem, 1, dataIdx + 1)
+      boardState.splice(rightItem, 1, dataIdx + 2)
+      boardState.splice(dbRightItem, 1, dataIdx)
+      console.log(boardState)
+      move += 2
+      drawBoard()
+    } else if (
+      tpRightItem === 15
+      && dataIdx + 1 !== 0 && dataIdx + 1 !== 4 && dataIdx + 1 !== 8 && dataIdx + 1 !== 12
+      && dataIdx + 2 !== 0 && dataIdx + 2 !== 4 && dataIdx + 2 !== 8 && dataIdx + 2 !== 12
+      && dataIdx + 3 !== 0 && dataIdx + 3 !== 4 && dataIdx + 3 !== 8 && dataIdx + 3 !== 12
+      ) {
+      boardState.splice(thisItem, 1, dataIdx + 1)
+      boardState.splice(rightItem, 1, dataIdx + 2)
+      boardState.splice(dbRightItem, 1, dataIdx + 3)
+      boardState.splice(tpRightItem, 1, dataIdx)
+      console.log(boardState)
+      move += 3
+      drawBoard()
+    } else if (
+      leftItem === 15
+      && dataIdx - 1 !== 3 && dataIdx - 1 !== 7 && dataIdx - 1 !== 11 && dataIdx - 1 !== 15
+      ) {
       boardState.splice(thisItem, 1, dataIdx - 1)
       boardState.splice(leftItem, 1, dataIdx)
       move += 1
+      drawBoard()
+    } else if (
+      dbLeftItem === 15
+      && dataIdx - 1 !== 3 && dataIdx - 1 !== 7 && dataIdx - 1 !== 11 && dataIdx - 1 !== 15
+      && dataIdx - 2 !== 3 && dataIdx - 2 !== 7 && dataIdx - 2 !== 11 && dataIdx - 2 !== 15
+      ) {
+      boardState.splice(thisItem, 1, dataIdx - 1)
+      boardState.splice(leftItem, 1, dataIdx - 2)
+      boardState.splice(dbLeftItem, 1, dataIdx)
+      move += 2
+      drawBoard()
+    } else if (tpLeftItem === 15
+      && dataIdx - 1 !== 3 && dataIdx - 1 !== 7 && dataIdx - 1 !== 11 && dataIdx - 1 !== 15
+      && dataIdx - 2 !== 3 && dataIdx - 2 !== 7 && dataIdx - 2 !== 11 && dataIdx - 2 !== 15
+      && dataIdx - 3 !== 3 && dataIdx - 3 !== 7 && dataIdx - 3 !== 11 && dataIdx - 3 !== 15
+      ) {
+      boardState.splice(thisItem, 1, dataIdx - 1)
+      boardState.splice(leftItem, 1, dataIdx - 2)
+      boardState.splice(dbLeftItem, 1, dataIdx - 3)
+      boardState.splice(tpLeftItem, 1, dataIdx)
+      move += 3
       drawBoard()
     } else if (topItem === 15) {
       boardState.splice(thisItem, 1, dataIdx - 4)
       boardState.splice(topItem, 1, dataIdx)
       move += 1
       drawBoard()
+    } else if (dbTopItem === 15) {
+      boardState.splice(thisItem, 1, dataIdx - 4)
+      boardState.splice(topItem, 1, dataIdx - 8)
+      boardState.splice(dbTopItem, 1, dataIdx)
+      move += 2
+      drawBoard()
+    } else if (tpTopItem === 15) {
+      boardState.splice(thisItem, 1, dataIdx - 4)
+      boardState.splice(topItem, 1, dataIdx - 8)
+      boardState.splice(dbTopItem, 1, dataIdx - 12)
+      boardState.splice(tpTopItem, 1, dataIdx)
+      move += 3
+      drawBoard()
     } else if (bottomItem === 15) {
       boardState.splice(thisItem, 1, dataIdx + 4)
       boardState.splice(bottomItem, 1, dataIdx)
       move += 1
+      drawBoard()
+    } else if (dbBottomItem === 15) {
+      boardState.splice(thisItem, 1, dataIdx + 4)
+      boardState.splice(bottomItem, 1, dataIdx + 8)
+      boardState.splice(dbBottomItem, 1, dataIdx)
+      move += 2
+      drawBoard()
+    } else if (tpBottomItem === 15) {
+      boardState.splice(thisItem, 1, dataIdx + 4)
+      boardState.splice(bottomItem, 1, dataIdx + 8)
+      boardState.splice(dbBottomItem, 1, dataIdx + 12)
+      boardState.splice(tpBottomItem, 1, dataIdx)
+      move += 3
       drawBoard()
     }
 
@@ -160,12 +243,11 @@ function setIntervalAndExcute() {
   return timeUp
 }
 
-
 // 재시작 버튼 동작
 const restart = document.querySelector('.btn-restart')
 
 restart.addEventListener('click', e => {
-  restart.textContent = '다시하기'
+  restart.textContent = '재시작'
   document.querySelector('.win').classList.remove('view') // 승리 모달 제거
   move = 0; // 움직임 횟수 초기화
   clearInterval(timeUp) // 기존에 돌고 있던 타이머 인터벌 종료
@@ -175,7 +257,7 @@ restart.addEventListener('click', e => {
 })
 
 // 최초 타이머 인터벌 실행 및 상태에 따른 화면 그리기 수행
-// setIntervalAndExcute()
+setIntervalAndExcute()
 drawBoard()
 
 
@@ -259,16 +341,5 @@ drawBoard()
 
 //   // console.log(newArr)
 // }
-
-// // 재시작 버튼을 눌렀을 때
-// const restart = document.querySelector('.btn-restart')
-// restart.addEventListener('click', e => {
-//   move = 0;
-//   clearInterval(timeUp) // 기존에 돌고 있던 타이머 인터벌 종료
-//   setIntervalAndExcute()  // 타이머 인터벌이 들어있는 함수 재실행
-//   randomBox(boardState)
-//   drawBoard()
-// })
-
 
 
