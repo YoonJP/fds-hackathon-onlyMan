@@ -39,6 +39,12 @@ body {
   font-family:'Lato', 'Noto Sans KR', sans-serif;
 }
 
+.clearfix::after {
+  content: '';
+  clear: both;
+  display: block
+}
+
 
 /* ====================
   Animation variables
@@ -383,6 +389,24 @@ body {
     width: 80vw;
   }
 
+  .header {
+    padding-bottom: 15px;
+  }
+
+  .game-explain {
+    float: left;
+    margin-top: 2px;
+    margin-left: 40px;
+  }
+
+  .btn-restart {
+    float: right;
+    margin-right: 40px;
+    font-size: 14px;
+    width: 60px;
+    line-height: 40px;
+  }
+
   .container, .game, .game-board, .win {
     max-width: 480px;
     width: calc(100vw - 20px);
@@ -404,5 +428,13 @@ body {
 
   .blank {
     border-color: transparent;
+  }
+
+  .info {
+    border: 0;
+  }
+
+  .footer {
+    display: none;
   }
 }
