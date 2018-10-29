@@ -257,4 +257,3 @@ restart.addEventListener('click', e => {
 
 // 최초 상태에 따른 화면 그리기 수행
 drawBoard()
-
