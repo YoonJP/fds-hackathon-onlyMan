@@ -393,18 +393,21 @@ body {
     padding-bottom: 15px;
   }
 
+  .group {
+    display: flex;
+    justify-content: center;
+  }
+
   .game-explain {
-    float: left;
     margin-top: 2px;
-    margin-left: 40px;
+    display: inline-block;
   }
 
   .btn-restart {
-    float: right;
-    margin-right: 40px;
     font-size: 14px;
     width: 60px;
     line-height: 40px;
+    margin-left: 10px;
   }
 
   .container, .game, .game-board, .win {
